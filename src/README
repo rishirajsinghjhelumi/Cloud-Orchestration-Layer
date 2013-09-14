@@ -1,0 +1,5 @@
+Cloud Orchestration App
+
+RUN APP:
+	./script Machines Image VM_types
+	../ve/bin/python main.py

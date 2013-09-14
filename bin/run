@@ -1,0 +1,35 @@
+#/bin/bash 
+
+##MongoDB Installation
+#sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
+#echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | sudo tee /etc/apt/sources.list.d/10gen.list
+#sudo apt-get update
+#sudo apt-get -y install mongodb-10gen
+#sudo service mongodb start
+
+## Qemu Installation
+#sudo apt-get install -y kvm-ipxe aqemu kvm lvm2
+#sudo apt-get install -y libvirt-bin virt-manager
+
+##Required Python Installation
+#sudo apt-get -y install python
+#sudo apt-get -y install python-libvirt
+#sudo apt-get -y install python-setuptools
+#sudo apt-get -y install python-pip
+#sudo apt-get -y install python-virtualenv
+
+##Curl Installation
+#sudo apt-get -y install curl
+#sudo apt-get -y install libcurl3
+
+#virtualenv --system-site-packages ../ve
+source ../ve/bin/activate
+#easy_install flask
+#easy_install flask-debugtoolbar
+#easy_install mongokit
+
+python setup.py $1 $2 $3
+cd ../src/
+
+python util.py
+python main.py

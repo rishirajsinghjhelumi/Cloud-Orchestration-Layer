@@ -1,0 +1,32 @@
+#!/bin/bash
+
+ceph-deploy purge $1
+ceph-deploy purgedata $1
+ceph-deploy new $1
+
+echo 'osd crush chooseleaf type = 0' >> ceph.conf
+sed '5d' ceph.conf > ceph1.conf
+echo "auth supported = none" >> ceph1.conf
+mv ceph1.conf ceph.conf
+
+ceph-deploy install $1
+ceph-deploy mon create $1
+sleep 2
+ceph-deploy gatherkeys $1
+
+ssh $1 "sudo rm -rf /tmp/osd0"
+ssh $1 "sudo rm -rf /tmp/osd1"
+
+ssh $1 "mkdir /tmp/osd0"
+ssh $1 "mkdir /tmp/osd1"
+
+sleep 2
+ceph-deploy osd prepare $1:/tmp/osd0
+sleep 2
+ceph-deploy osd prepare $1:/tmp/osd1
+sleep 2
+ceph-deploy osd activate $1:/tmp/osd0
+sleep 2
+ceph-deploy osd activate $1:/tmp/osd1
+
+ceph-deploy disk list $1

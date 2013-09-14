@@ -1,0 +1,23 @@
+<domain type="qemu">
+	<name>Machine Name</name>
+	<memory>Memory</memory>
+	<currentMemory>Memory</currentMemory>
+	<vcpu>Vcpu</vcpu>
+	<os>
+		<type arch="i686" machine="pc">hvm</type>
+	</os>
+	<devices>
+		<emulator>/usr/bin/qemu-system-x86_64</emulator>
+		<disk device="disk" type="file">
+			<source file="Image File" />
+			<target dev="hda" />
+		</disk>
+		<interface type="network">
+			<source network="default" />
+		</interface>
+		<graphics port="-1" type="vnc" />
+		<on_reboot>restart</on_reboot>
+		<on_poweroff>preserve</on_poweroff>
+		<on_crash>restart</on_crash>
+	</devices>
+</domain>
